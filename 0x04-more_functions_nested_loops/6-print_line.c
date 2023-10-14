@@ -2,7 +2,7 @@
 /**
  * print_line - Entry point
  *
- * @n - is the number of times the character _ should be print
+ * @n: is the number of times the character _ should be print
  *
  * Prototype: void print_line(int n)
  *
