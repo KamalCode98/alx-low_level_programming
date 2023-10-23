@@ -1,14 +1,13 @@
 #include "main.h"
 /**
  * _memset - Entry point
- *
  * * @s : Pointer to the memory area to fill the constant byte b
  * * @b : Constant byte that fill the memory area
  * * @n : Specices the number of bytes to fil with b
- *
  * Prototype : char *_memset(char *s, char b, unsignet int n);
  * Description : Function that fills memory with a constant byte.
- * Return : S
+ * Returns a pointer to the memory area s
+ * Return: char (s).
  */
 char *_memset(char *s, char b, unsigned int n)
 {
@@ -19,5 +18,5 @@ char *_memset(char *s, char b, unsigned int n)
 		s[i] = b;
 	}
 
-	return s;
+	return (s);
 }
