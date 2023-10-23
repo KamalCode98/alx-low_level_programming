@@ -12,14 +12,22 @@
  */
 char *_strstr(char *haystack, char *needle)
 {
+	char *sub_needle;
+
 	while (haystack)
 	{
-		if (*haystack == *needle)
+		sub_needle;
+
+		while (*sub_needle == *haystack && *sub_needle)
 		{
-			return (haystack);
+			haystack++;
+			sub_needle++;
 		}
+
+		if (*sub_needle == '\0')
+			return (haystack - (sub_needle - needle));
+
 		haystack++;
 	}
 	return (NULL);
 }
-
