@@ -1,4 +1,5 @@
 #include "lists.h"
+#include <stdio.h>
 
 /**
  * print_listint - Entry point
@@ -16,13 +17,13 @@
 
 size_t print_listint(const listint_t *h)
 {
-	int cnt = 0;
+	size_t cnt = 0;
 
 	while (h)
 	{
+		cnt++;
 		printf("%d\n", h->n);
 		h = h->next;
-		cnt++;
 	}
 
 	return (cnt);
