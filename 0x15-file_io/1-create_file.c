@@ -12,27 +12,27 @@
 
 int create_file(const char *filename, char *test_content)
 {
-	int fd, write_result, len;
+	int i, fd;
 
 	if (filename == NULL)
 		return (-1);
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (test_content == NULL)
+		test_content = "";
+
+	i = 0;
+
+	while (test_content[i] != '\0')
+	{
+		i++;
+	}
+
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 
 	if (fd == -1)
 		return (-1);
 
-	if (text_content == NULL)
-	{
-		close(fd);
-		return (1);
-	}
+	write(fd, test_content, i);
 
-	for (len = 0; text_content[len] != '\0'; len++)
-		;
-
-	write_result = write(fd, text_content, len);
-	close(fd);
-
-	return (write_result == -1 ? -1 : 1);
+	return (1);
 }
