@@ -39,6 +39,17 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+
+typedef void (*op_func)(stack_t **stack, unsigned int line_number);
+void free_nodes(void);
+void err(int error_code, ...);
+void more_err(int error_code, ...);
+void string_err(int error_code, ...);
+void call_function(op_func function_pointer, char *opcode, char *value, int line_number, int format);
+void add_to_queue(stack_t **new_node, __attribute__((unused))unsigned int ln);
+stack_t *create_node(int n);
+void open_file(char *file_path);
+
 /*monty file operations*/
 
 void read_and_process_file(char *file_path);
@@ -74,5 +85,6 @@ void rotate_right(stack_t **stack, __attribute__((unused))unsigned int line_numb
 void handle_error(int error_code, ...);
 void handle_more_error(int error_code, ...);
 void handle_string_error(int error_code, ...);
+
 
 #endif /* MONTY_H */
