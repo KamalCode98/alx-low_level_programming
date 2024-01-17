@@ -99,4 +99,54 @@ int process_instruction_line(char *line, int line_number, int format)
     return format;
 }
 
+/**
+ * execute_opcode_function - Execute the function associated with the given opcode
+ * @opcode: Opcode to be executed
+ * @value: Argument of the opcode
+ * @line_number: Line number in the Monty byte code file
+ * @format: Storage format (0 for stack, 1 for queue)
+ * Return: void
+ */
+void execute_opcode_function(char *opcode, char *value, int line_number, int format)
+{
+    int i;
+    int flag;
 
+    instruction_t func_list[] = {
+        {"push", add_to_stack},
+        {"pall", print_stack},
+        {"pint", print_top},
+        {"pop", pop_top},
+        {"nop", nop},
+        {"swap", swap_nodes},
+        {"add", add_nodes},
+        {"sub", sub_nodes},
+        {"div", div_nodes},
+        {"mul", mul_nodes},
+        {"mod", mod_nodes},
+        {"pchar", print_char},
+        {"pstr", print_str},
+        {"rotl", rotl},
+        {"rotr", rotr},
+        {NULL, NULL}
+    };
+
+    // Ignore lines starting with '#' (comments)
+    if (opcode[0] == '#')
+        return;
+
+    // Search for the appropriate function for the given opcode
+    for (flag = 1, i = 0; func_list[i].opcode != NULL; i++)
+    {
+        if (strcmp(opcode, func_list[i].opcode) == 0)
+        {
+            // Call the found function and pass relevant parameters
+            call_function(func_list[i].f, opcode, value, line_number, format);
+            flag = 0;
+        }
+    }
+
+    // If no matching opcode is found, report an error
+    if (flag == 1)
+        err(3, line_number, opcode);
+}
