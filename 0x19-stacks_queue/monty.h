@@ -53,4 +53,26 @@ void push_to_stack(stack_t **new_node, __attribute__((unused))unsigned int line_
 void print_stack_elements(stack_t **stack, __attribute__((unused))unsigned int line_number);
 void pop_stack_top(stack_t **stack, unsigned int line_number);
 void print_stack_top(stack_t **stack, unsigned int line_number);
+void do_nothing(stack_t **stack, unsigned int line_number);
 
+/*monty arithmetic operations*/
+
+void swap_stack_nodes(stack_t **stack, unsigned int line_number);
+void add_stack_nodes(stack_t **stack, unsigned int line_number);
+void sub_stack_nodes(stack_t **stack, unsigned int line_number);
+void div_stack_nodes(stack_t **stack, unsigned int line_number);
+
+/*monty string and special character operations*/
+
+void print_char(stack_t **stack, unsigned int line_number);
+void print_str(stack_t **stack, __attribute__((unused))unsigned int line_number);
+void rotate_left(stack_t **stack, __attribute__((unused))unsigned int line_number);
+void rotate_right(stack_t **stack, __attribute__((unused))unsigned int line_number);
+
+/*monty error handling*/
+
+void handle_error(int error_code, ...);
+void handle_more_error(int error_code, ...);
+void handle_string_error(int error_code, ...);
+
+#endif /* MONTY_H */
