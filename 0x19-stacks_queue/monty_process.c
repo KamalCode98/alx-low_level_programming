@@ -11,8 +11,7 @@ void read_and_process_file(char *file_path)
 
     if (file_path == NULL || file_descriptor == NULL)
         err(2, file_path);
-
-    // Add the necessary logic to read and process the Monty byte codes
+    
     process_file(file_descriptor);
 
     fclose(file_descriptor);
@@ -131,22 +130,18 @@ void execute_opcode_function(char *opcode, char *value, int line_number, int for
         {NULL, NULL}
     };
 
-    // Ignore lines starting with '#' (comments)
     if (opcode[0] == '#')
         return;
 
-    // Search for the appropriate function for the given opcode
     for (flag = 1, i = 0; func_list[i].opcode != NULL; i++)
     {
         if (strcmp(opcode, func_list[i].opcode) == 0)
         {
-            // Call the found function and pass relevant parameters
             call_function(func_list[i].f, opcode, value, line_number, format);
             flag = 0;
         }
     }
 
-    // If no matching opcode is found, report an error
     if (flag == 1)
         err(3, line_number, opcode);
 }
