@@ -11,7 +11,7 @@ void read_and_process_file(char *file_path)
 
     if (file_path == NULL || file_descriptor == NULL)
         err(2, file_path);
-    
+
     process_file(file_descriptor);
 
     fclose(file_descriptor);
@@ -34,37 +34,6 @@ void read_and_parse_file(FILE *file_descriptor)
     }
     
     free(buffer);
-}
-
-/**
- * process_instruction_line - Processes a line of Monty byte code to determine the operation
- * @line: Line from the Monty byte code file
- * @line_number: Line number
- * @format: Storage format (0 for stack, 1 for queue)
- * Return: Updated storage format (0 for stack, 1 for queue)
- */
-int process_instruction_line(char *line, int line_number, int format)
-{
-    char *opcode, *value;
-    const char *delim = "\n ";
-
-    if (line == NULL)
-        err(4);
-
-    opcode = strtok(line, delim);
-    if (opcode == NULL)
-        return format;
-
-    value = strtok(NULL, delim);
-
-    if (strcmp(opcode, "stack") == 0)
-        return 0;
-    if (strcmp(opcode, "queue") == 0)
-        return 1;
-
-    find_func(opcode, value, line_number, format);
-
-    return format;
 }
 
 /**
@@ -144,4 +113,50 @@ void execute_opcode_function(char *opcode, char *value, int line_number, int for
 
     if (flag == 1)
         err(3, line_number, opcode);
+}
+
+/**
+ * execute_function - Calls the specified function based on the opcode
+ * @function_pointer: Pointer to the function that is about to be called
+ * @opcode: String representing the opcode
+ * @value: String representing a numeric value
+ * @line_number: Line number for the instruction
+ * @format: Format specifier (0 for stack, 1 for queue)
+ */
+void execute_function(op_func function_pointer, char *opcode, char *value, int line_number, int format)
+{
+    stack_t *node;
+    int flag;
+    int i;
+
+    flag = 1;
+
+    if (strcmp(opcode, "push") == 0)
+    {
+        if (value != NULL && value[0] == '-')
+        {
+            value = value + 1;
+            flag = -1;
+        }
+
+        if (value == NULL)
+            err(5, line_number);
+
+        for (i = 0; value[i] != '\0'; i++)
+        {
+            if (isdigit(value[i]) == 0)
+                err(5, line_number);
+        }
+
+        node = create_node(atoi(value) * flag);
+
+        if (format == 0)
+            function_pointer(&node, line_number);
+        if (format == 1)
+            add_to_queue(&node, line_number);
+    }
+    else
+    {
+        function_pointer(&head, line_number);
+    }
 }
