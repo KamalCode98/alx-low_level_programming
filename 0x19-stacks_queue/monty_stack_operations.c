@@ -66,3 +66,16 @@ void pop_stack_top(stack_t **stack, unsigned int line_number)
 
     free(tmp);
 }
+
+/**
+ * print_stack_top - Prints the value of the top node in the stack.
+ * @stack: Pointer to a pointer pointing to the top node of the stack.
+ * @line_number: Integer representing the line number of the opcode.
+ */
+void print_stack_top(stack_t **stack, unsigned int line_number)
+{
+    if (stack == NULL || *stack == NULL)
+        more_err(6, line_number);
+
+    printf("%d\n", (*stack)->n);
+}
