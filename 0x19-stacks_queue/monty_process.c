@@ -49,27 +49,22 @@ int process_instruction_line(char *line, int line_number, int format)
     char *opcode, *value;
     const char *delim = "\n ";
 
-    // Handle NULL buffer with error
     if (line == NULL)
         err(4);
 
-    // Tokenize the line to extract opcode and value
     opcode = strtok(line, delim);
     if (opcode == NULL)
         return format;
 
     value = strtok(NULL, delim);
 
-    // Check if opcode is "stack" or "queue" and update the format accordingly
     if (strcmp(opcode, "stack") == 0)
         return 0;
     if (strcmp(opcode, "queue") == 0)
         return 1;
 
-    // Call the function to process the opcode and value
     find_func(opcode, value, line_number, format);
 
-    // Return the updated storage format
     return format;
 }
 
