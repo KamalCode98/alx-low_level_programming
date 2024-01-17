@@ -68,4 +68,35 @@ int process_instruction_line(char *line, int line_number, int format)
     return format;
 }
 
+/**
+ * process_instruction_line - Processes a line of Monty byte code to determine the operation
+ * @line: Line from the Monty byte code file
+ * @line_number: Line number
+ * @format: Storage format (0 for stack, 1 for queue)
+ * Return: Updated storage format (0 for stack, 1 for queue)
+ */
+int process_instruction_line(char *line, int line_number, int format)
+{
+    char *opcode, *value;
+    const char *delim = "\n ";
+
+    if (line == NULL)
+        err(4);
+
+    opcode = strtok(line, delim);
+    if (opcode == NULL)
+        return format;
+
+    value = strtok(NULL, delim);
+
+    if (strcmp(opcode, "stack") == 0)
+        return 0;
+    if (strcmp(opcode, "queue") == 0)
+        return 1;
+
+    find_func(opcode, value, line_number, format);
+
+    return format;
+}
+
 
