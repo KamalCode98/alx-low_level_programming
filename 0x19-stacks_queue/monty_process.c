@@ -131,6 +131,15 @@ void execute_function(op_func function_pointer, char *opcode, char *value, int l
 
     flag = 1;
 
+    if (!function_pointer)
+    {
+        handle_error(8, line_number, opcode);
+    }
+    else
+    {
+        function_pointer(stack, line_number);
+    }
+
     if (strcmp(opcode, "push") == 0)
     {
         if (value != NULL && value[0] == '-')
@@ -159,4 +168,5 @@ void execute_function(op_func function_pointer, char *opcode, char *value, int l
     {
         function_pointer(&head, line_number);
     }
+    
 }
