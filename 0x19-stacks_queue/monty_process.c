@@ -37,4 +37,40 @@ void read_and_parse_file(FILE *file_descriptor)
     free(buffer);
 }
 
+/**
+ * process_instruction_line - Processes a line of Monty byte code to determine the operation
+ * @line: Line from the Monty byte code file
+ * @line_number: Line number
+ * @format: Storage format (0 for stack, 1 for queue)
+ * Return: Updated storage format (0 for stack, 1 for queue)
+ */
+int process_instruction_line(char *line, int line_number, int format)
+{
+    char *opcode, *value;
+    const char *delim = "\n ";
+
+    // Handle NULL buffer with error
+    if (line == NULL)
+        err(4);
+
+    // Tokenize the line to extract opcode and value
+    opcode = strtok(line, delim);
+    if (opcode == NULL)
+        return format;
+
+    value = strtok(NULL, delim);
+
+    // Check if opcode is "stack" or "queue" and update the format accordingly
+    if (strcmp(opcode, "stack") == 0)
+        return 0;
+    if (strcmp(opcode, "queue") == 0)
+        return 1;
+
+    // Call the function to process the opcode and value
+    find_func(opcode, value, line_number, format);
+
+    // Return the updated storage format
+    return format;
+}
+
 
