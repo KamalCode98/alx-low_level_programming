@@ -39,9 +39,18 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* monty file operations*/
+/*monty file operations*/
+
 void read_and_process_file(char *file_path);
 void read_and_parse_file(FILE *file_descriptor);
 int process_instruction_line(char *line, int line_number, int format);
 void execute_opcode_function(char *opcode, char *value, int line_number, int format);
 void execute_function(op_func function_pointer, char *opcode, char *value, int line_number, int format);
+
+/*monty stack operations*/
+
+void push_to_stack(stack_t **new_node, __attribute__((unused))unsigned int line_number);
+void print_stack_elements(stack_t **stack, __attribute__((unused))unsigned int line_number);
+void pop_stack_top(stack_t **stack, unsigned int line_number);
+void print_stack_top(stack_t **stack, unsigned int line_number);
+
